@@ -2,7 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
 const mysql = require("mysql2");
-
+const productRoutes = require("./routes/productRoutes");
 const app = express();
 
 const corsOptions = {
@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
   res.send("TESTING SUCCESSFUL!");
 });
 //routes
-app.use("", productRoutes);
+app.use("/api/products", productRoutes);
 
-const PORT = 8081 || process.env.PORT;
-app.listen(PORT, () => console.log("server is running!"));
+const PORT = 8080 || process.env.PORT;
+app.listen(PORT, () => console.log(`server is running! ${PORT}`));

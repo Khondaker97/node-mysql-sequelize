@@ -4,7 +4,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(dbconfig.DB, dbconfig.USER, dbconfig.PASSWORD, {
   host: dbconfig.HOST,
   dialect: dbconfig.dialect,
-  operatorsAliases: false,
+  // operatorsAliases: false,
 
   pool: {
     max: dbconfig.pool.max,
@@ -19,7 +19,7 @@ sequelize
   .then(() => console.log("connected..!"))
   .catch((err) => console.log("ERROR", err));
 
-//create a db obj
+//initialize a db obj
 const db = {};
 
 //create sequelize instance
@@ -27,8 +27,8 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 //create models/tables
-db.products = import("./productModel.js")(sequelize, DataTypes);
-db.reviews = import("./reviewModel.js")(sequelize, DataTypes);
+db.products = require("./productModel.js")(sequelize, DataTypes);
+db.reviews = require("./reviewModel.js")(sequelize, DataTypes);
 //force: true -> create something which isn't existing, each update also create a new
 db.sequelize
   .sync({ force: false })
